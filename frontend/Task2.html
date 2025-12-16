@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f0f0f0;
+  }
+
+  .calc {
+    width: 300px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.18);
+  }
+
+  h2 {
+    text-align: center;
+    margin: 0 0 18px 0;
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  #display {
+    width: 100%;
+    box-sizing: border-box; 
+    height: 60px;
+    padding: 12px;
+    font-size: 26px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: right;
+    margin-bottom: 16px;
+    background: #fafafa;
+  }
+
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  button {
+    padding: 16px 0;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    background: #e6e6e6;
+    cursor: pointer;
+    transition: 0.1s;
+  }
+
+  button:active {
+    background: #ccc;
+    transform: scale(0.97);
+  }
+
+  .op {
+    background: #ffe4b5;
+  }
+
+  .eq {
+    background: #4caf50;
+    color: white;
+    grid-column: span 2;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="calc">
+  <h2>Calculator</h2>
+
+  <input type="text" id="display" disabled>
+
+  <div class="btn-grid">
+    <button class="op" onclick="clr()">AC</button>
+    <button class="op" onclick="del()">DEL</button>
+    <button class="op" onclick="press('%')">%</button>
+    <button class="op" onclick="press('/')">÷</button>
+
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button class="op" onclick="press('*')">×</button>
+
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button class="op" onclick="press('-')">−</button>
+
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button class="op" onclick="press('+')">+</button>
+
+    <button onclick="press('0')" style="grid-column: span 2;">0</button>
+    <button onclick="press('.')">.</button>
+    <button class="eq" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<script>
+  const display = document.getElementById("display");
+
+  function press(v) { display.value += v; }
+
+  function clr() { display.value = ""; }
+
+  function del() {
+    display.value = display.value.slice(0, -1);
+  }
+
+  function calculate() {
+    try {
+      display.value = eval(
+        display.value.replace(/×/g,"*").replace(/÷/g,"/")
+      );
+    } catch {
+      display.value = "Error";
+    }
+  }
+</script>
+
+</body>
+</html>
